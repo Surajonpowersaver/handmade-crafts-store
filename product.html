@@ -1,0 +1,130 @@
+<!-- html/product.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product — Handmade Minimal</title>
+  <link href="../css/style.css" rel="stylesheet"> <!-- adjust path if needed -->
+  <style>
+    /* small page-specific styles, uses your main CSS variables */
+    .product-page { max-width: 1000px; margin: 60px auto; padding: 28px; background: var(--bg); }
+    .product-grid { display:grid; grid-template-columns: 1fr 420px; gap:30px; align-items:start; }
+    .product-image { width:100%; border-radius:12px; background:#fff; padding:14px; box-shadow:var(--card-shadow); }
+    .product-image img{ width:100%; height:auto; display:block; border-radius:8px; object-fit:cover; }
+    .product-info h1 { font-family:'Playfair Display', serif; margin:0 0 8px; }
+    .price { font-size:1.6rem; margin-top:6px; color:var(--text); }
+    .desc { color: var(--muted); margin-top:14px; line-height:1.6; }
+    .color-options { display:flex; gap:10px; margin-top:12px; }
+    .color-swatch { width:30px;height:30px;border-radius:50%;border:2px solid transparent; cursor:pointer; }
+    .color-swatch.selected { box-shadow:0 0 0 3px rgba(0,0,0,0.06); border-color:var(--accent); }
+    .product-actions { margin-top:18px; display:flex; gap:12px; align-items:center; }
+    .qty { width:56px; text-align:center; padding:6px; border-radius:8px; border:1px solid #eee; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="bookmarks.html">Bookmarks</a>
+        <a href="bracelets.html">Bracelets</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="product-page container">
+    <div id="product-root">
+      <!-- content rendered by JS -->
+      <div class="product-grid">
+        <div class="product-image"><img id="p-image" src="" alt=""></div>
+        <div class="product-info">
+          <h1 id="p-title">Title</h1>
+          <div class="price" id="p-price">₹0.00</div>
+          <div class="desc" id="p-desc">Description</div>
+
+          <div id="p-colors" style="margin-top:16px;">
+            <label style="font-weight:600">Choose color</label>
+            <div class="color-options" id="color-options"></div>
+          </div>
+
+          <div class="product-actions">
+            <input id="quantity" class="qty" type="number" min="1" value="1">
+            <button id="addCartBtn" class="btn">Add to Cart</button>
+            <a href="../html/cart.html" class="btn" style="background:transparent; border:1px solid var(--accent); color:var(--text);">View Cart</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><small>© 2025 Handmade Minimal</small></div></footer>
+
+  <script src="../js/products.js"></script>
+  <script src="../js/cart.js"></script> <!-- reuses your cart helpers -->
+  <script>
+    // product.html logic
+    function qs(key){ const url = new URL(window.location.href); return url.searchParams.get(key); }
+
+    const pid = qs('id');
+    const product = window.PRODUCTS && window.PRODUCTS.find(p => p.id === pid);
+
+    if (!product){
+      document.getElementById('product-root').innerHTML = '<p>Product not found.</p>';
+    } else {
+      document.getElementById('p-image').src = product.image;
+      document.getElementById('p-image').alt = product.title;
+      document.getElementById('p-title').textContent = product.title;
+      document.getElementById('p-price').textContent = (product.currency || '₹') + product.price.toFixed(2);
+      document.getElementById('p-desc').textContent = product.description;
+
+      // render colors as swatches
+      const colorsContainer = document.getElementById('color-options');
+      let selectedColor = product.colors && product.colors[0];
+      if (product.colors && product.colors.length){
+        product.colors.forEach((c, i) => {
+          const sw = document.createElement('button');
+          sw.className = 'color-swatch' + (i===0 ? ' selected' : '');
+          sw.dataset.color = c;
+          // map basic named color to sample hex (adjust as needed)
+          const map = { Blue:'#94bff3', Pink:'#f8a6b2', White:'#ffffff', Beige:'#f4e2c8', Brown:'#b89a7c', Green:'#9fbf9a' };
+          sw.style.background = map[c] || '#ddd';
+          sw.addEventListener('click', () => {
+            document.querySelectorAll('.color-swatch').forEach(x=>x.classList.remove('selected'));
+            sw.classList.add('selected');
+            selectedColor = c;
+          });
+          colorsContainer.appendChild(sw);
+        });
+      } else {
+        document.getElementById('p-colors').style.display = 'none';
+      }
+
+      // add to cart behaviour
+      document.getElementById('addCartBtn').addEventListener('click', () => {
+        const qty = parseInt(document.getElementById('quantity').value) || 1;
+        const idWithColor = product.id + (selectedColor ? ('-' + selectedColor.toLowerCase()) : '');
+        const item = { id: idWithColor, name: product.title + (selectedColor ? (' ('+selectedColor+')') : ''), price: product.price, quantity: qty, color: selectedColor };
+        // use cartHelpers defined in js/cart.js
+        if (window.addToCart) {
+          addToCart(item);
+          // small feedback
+          alert(`Added ${qty} × ${product.title}${selectedColor ? (' ('+selectedColor+')') : ''} to cart`);
+          window.dispatchEvent(new Event('cart:change'));
+        } else {
+          // fallback: simple localStorage
+          const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+          const existing = cart.find(i=>i.id===item.id);
+          if (existing) existing.quantity += item.quantity;
+          else cart.push(item);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert('Added to cart');
+          window.dispatchEvent(new Event('cart:change'));
+        }
+      });
+    }
+  </script>
+</body>
+</html>

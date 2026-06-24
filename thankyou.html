@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - Handmade Minimal</title>
+  <link href="../css/style.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f7f4ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Playfair Display', serif;
+      color: #4a4033;
+      text-align: center;
+    }
+    .thankyou-box {
+      background: #fff;
+      padding: 50px 60px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      animation: fadeIn 1s ease forwards;
+    }
+    .thankyou-box h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+    .thankyou-box p {
+      font-size: 1.1rem;
+      color: #6a5f55;
+      margin-bottom: 30px;
+    }
+    .thankyou-box a {
+      display: inline-block;
+      background: #4a4033;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .thankyou-box a:hover {
+      background: #3c342a;
+      transform: translateY(-2px);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="thankyou-box">
+    <h1>Thank You!</h1>
+    <p>Your order has been placed successfully. We’ll prepare it with care and love.</p>
+    <a href="index.html">Return Home</a>

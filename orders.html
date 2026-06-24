@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Orders — Handmade Minimal</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="orders.html" class="active">Orders</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main class="container" style="padding:60px 0;">
+    <h1 class="section-title">Your Orders</h1>
+    <div style="margin:12px 0;">
+      <input id="ordersEmail" placeholder="Enter your email" style="padding:10px;border:1px solid #ddd;border-radius:8px;width:280px;" />
+      <button id="loadOrders" class="btn" style="margin-left:8px;">Load Orders</button>
+    </div>
+    <div id="ordersList" style="background:#fff;border-radius:14px;box-shadow:0 8px 28px rgba(40,35,20,0.06);padding:24px;"></div>
+  </main>
+
+  <script>
+    const emailInput = document.getElementById('ordersEmail');
+    try { const e = localStorage.getItem('auth_email'); if (e) emailInput.value = e; } catch(_) {}
+
+    document.getElementById('loadOrders').addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      if (!email) { alert('Enter your email'); return; }
+      const list = document.getElementById('ordersList');
+      list.innerHTML = 'Loading...';
+      try {
+        const resp = await fetch('/api/orders?email=' + encodeURIComponent(email));
+        const data = await resp.json();
+        if (!Array.isArray(data)) { list.innerHTML = 'No orders.'; return; }
+        if (!data.length) { list.innerHTML = 'No orders yet.'; return; }
+        list.innerHTML = data.map(o => `
+          <div style="border-bottom:1px solid #eee;padding:12px 0;">
+            <div style="display:flex;justify-content:space-between;">
+              <strong>Order #${o._id}</strong>
+              <span>${new Date(o.createdAt).toLocaleString()}</span>
+            </div>
+            <div>Status: ${o.status} — Total: $${Number(o.total).toFixed(2)}</div>
+            <ul style="margin:8px 0 0 16px;">
+              ${o.items.map(it => `<li>${it.title} x ${it.quantity} — $${Number(it.price).toFixed(2)}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('');
+      } catch (err) {
+        list.innerHTML = 'Failed to load orders.';
+      }
+    });
+  </script>
+</body>
+</html>
+

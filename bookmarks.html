@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookmarks — Handmade Minimal</title>
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bookmarks.html">Bookmarks</a>
+        <a href="bracelets.html">Bracelets</a>
+        <a href="keychains.html">Keychains</a>
+        <a href="phonecase.html">Phone Case</a>
+        <a href="resinwork.html">Resin Work</a>
+        <a href="claywork.html">Clay Work</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1 class="section-title">Bookmarks</h1>
+    <div class="grid">
+      <!-- Example product card -->
+      <article class="card">  
+        <img src="images/bm4.png" alt="Penguin-Bookmark" class="card-img">
+        <h3 class="card-title">Penguin</h3>
+        <p class="card-sub">₹129.00</p>
+        <div class="card-actions">
+          <a class="link" href="product-detail.html?id=bookmark-penguin">Details</a>
+          <button class="add-to-cart" data-id="bookmark-penguin" data-name="Penguin" data-price="129.00">Add</button>
+        </div>
+      </article>
+
+      <!-- duplicate cards to populate gallery -->
+      <article class="card">
+        <img src="images/bm3.png" alt="Boho Bookmark" class="card-img">
+        <h3 class="card-title">Boho</h3>
+        <p class="card-sub">₹129.00</p>
+        <div class="card-actions">
+          <a class="link" href="product-detail.html?id=bookmark-boho">Details</a>
+          <button class="add-to-cart" data-id="bookmark-boho" data-name="Boho" data-price="129.00">Add</button>
+        </div>
+      </article>
+      <article class="card">
+        <img src="images/bm2.png" alt="Minimal Bookmark" class="card-img">
+        <h3 class="card-title">Minimal</h3>
+        <p class="card-sub">₹129.00</p>
+        <div class="card-actions">
+          <a class="link" href="product-detail.html?id=bookmark-minimal">Details</a>
+          <button class="add-to-cart" data-id="bookmark-minimal" data-name="Minimal" data-price="129.00">Add</button>
+        </div>
+      </article>
+      <article class="card">
+        <img src="images/bm1.png" alt="Floral Bookmark" class="card-img">
+        <h3 class="card-title">Floral</h3>
+        <p class="card-sub">₹129.00</p>
+        <div class="card-actions">
+          <a class="link" href="product-detail.html?id=bookmark-floral">Details</a>
+          <button class="add-to-cart" data-id="bookmark-floral" data-name="Floral" data-price="129.00">Add</button>
+        </div>
+      </article>
+      <!-- add more as needed -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><small>© 2025 Handmade Minimal</small></div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

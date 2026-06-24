@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>Login to Your Account</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="password" id="password" placeholder="Enter password" required>
+        <button type="submit" class="btn-primary">Login</button>
+        <p>Don’t have an account? <a href="account-signup.html">Signup</a></p>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const resp = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (!resp.ok) {
+          const data = await resp.json().catch(() => ({ message: 'Login failed' }));
+          alert(data.message || 'Invalid credentials. Please try again.');
+          return;
+        }
+        // store email for order placement convenience
+        try { localStorage.setItem('auth_email', email); } catch (_) {}
+        alert('Login successful! Redirecting...');
+        window.location.href = 'index.html';
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
+

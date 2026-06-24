@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Details — Handmade Minimal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background:#fbf8f6; color:var(--text,#2f2b25); font-family: 'Inter', sans-serif; margin:0; }
+    .container { max-width:1200px; margin:40px auto; padding:0 20px; }
+    .product-wrap { display:flex; gap:28px; align-items:flex-start; }
+    .image-column {
+      flex: 0 0 60%;
+      background:#0b0b0b;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius:6px;
+      overflow:hidden;
+      min-height: 78vh;
+    }
+    .image-column img {
+      display:block;
+      width:auto;
+      height:100%;
+      max-width:100%;
+      object-fit:contain;
+    }
+    .info-column {
+      flex: 0 0 40%;
+      padding: 18px 0;
+    }
+    .brand { color:var(--muted,#8e7f73); font-size:14px; margin-bottom:6px; display:block; }
+    h1 { font-family: 'Playfair Display', serif; margin:0 0 8px; font-size:28px; color:var(--text); }
+    .price { font-size:22px; color:var(--accent,#7a5a3a); margin:8px 0 16px; font-weight:600; }
+    .desc { color:var(--muted,#6d635c); line-height:1.6; margin-bottom:18px; }
+    .actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
+    .qty { width:64px; padding:8px; border-radius:8px; border:1px solid #e8e3de; text-align:center; }
+    .btn { background:var(--accent,#7a5a3a); color:white; border:none; border-radius:8px; padding:10px 16px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
+    .btn.secondary { background:transparent; color:var(--text); border:1px solid #e8e3de; }
+    .details-list { margin-top:20px; color:var(--muted,#7b7268); font-size:14px; }
+    .details-list ul { margin:8px 0 0 18px; }
+    .color-options { margin:16px 0; }
+    .color-options label { font-weight:600; display:block; margin-bottom:8px; color:var(--text); }
+    .color-swatches { display:flex; gap:10px; flex-wrap:wrap; }
+    .color-swatch { 
+      width:40px; 
+      height:40px; 
+      border-radius:50%; 
+      border:2px solid #ddd; 
+      cursor:pointer; 
+      transition:all 0.2s;
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
+    }
+    .color-swatch:hover { transform:scale(1.1); }
+    .color-swatch.selected { border-color:var(--accent,#7a5a3a); border-width:3px; box-shadow:0 0 0 2px rgba(122,90,58,0.2); }
+    .error-message { text-align:center; padding:40px; color:var(--muted); }
+    @media (max-width:900px){
+      .product-wrap { flex-direction:column; }
+      .image-column { min-height:48vh; height:auto; }
+      .image-column img { height:380px; width:100%; object-fit:contain; }
+      .info-column { padding:12px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="product-container">
+      <div class="error-message">Loading product...</div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2025 Handmade Minimal — All rights reserved</small>
+    </div>
+  </footer>
+
+  <script src="products-data.js"></script>
+  <script src="cart.js"></script>
+  <script>
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    
+    if (!productId) {
+      document.getElementById('product-container').innerHTML = 
+        '<div class="error-message"><h2>Product Not Found</h2><p>Please select a product from our catalog.</p><a href="index.html" class="btn">Go Home</a></div>';
+    } else {
+      const product = window.PRODUCTS_DATA[productId];
+      
+      if (!product) {
+        document.getElementById('product-container').innerHTML = 
+          '<div class="error-message"><h2>Product Not Found</h2><p>The product you are looking for does not exist.</p><a href="index.html" class="btn">Go Home</a></div>';
+      } else {
+        // Render product
+        document.title = `${product.title} — Handmade Minimal`;
+        document.getElementById('product-container').innerHTML = `
+          <div class="product-wrap">
+            <div class="image-column">
+              <img src="${product.image}" alt="${product.title}" id="product-image">
+            </div>
+            <aside class="info-column">
+              <span class="brand">${product.category}</span>
+              <h1 id="product-title">${product.title}</h1>
+              <div class="price" id="product-price">₹${product.price.toFixed(2)}</div>
+              <div class="desc" id="product-desc">${product.description}</div>
+              ${product.colors ? `
+              <div class="color-options">
+                <label>Choose Color:</label>
+                <div class="color-swatches" id="color-swatches"></div>
+              </div>
+              ` : ''}
+              <div class="actions">
+                <input type="number" id="qty" class="qty" value="1" min="1" />
+                <button id="addBtn" class="btn">Add to Cart</button>
+                <a href="cart.html" class="btn secondary">View Cart</a>
+              </div>
+              <div class="details-list">
+                <strong>Details:</strong>
+                <ul>
+                  <li>Material: ${product.details.material}</li>
+                  <li>Size: ${product.details.size}</li>
+                  <li>Care: ${product.details.care}</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        `;
+        
+        // Handle color selection if available
+        let selectedColor = product.defaultColor || (product.colors && product.colors[0] ? product.colors[0].value : null);
+        if (product.colors && product.colors.length > 0) {
+          const swatchesContainer = document.getElementById('color-swatches');
+          product.colors.forEach(color => {
+            const swatch = document.createElement('button');
+            swatch.className = 'color-swatch' + (color.value === selectedColor ? ' selected' : '');
+            swatch.style.backgroundColor = color.hex;
+            swatch.title = color.name;
+            swatch.dataset.color = color.value;
+            swatch.dataset.colorName = color.name;
+            swatch.addEventListener('click', () => {
+              document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+              swatch.classList.add('selected');
+              selectedColor = color.value;
+            });
+            swatchesContainer.appendChild(swatch);
+          });
+        }
+        
+        // Add to cart functionality
+        document.getElementById('addBtn').addEventListener('click', () => {
+          const qty = Math.max(1, parseInt(document.getElementById('qty').value || 1));
+          const colorName = selectedColor ? (product.colors.find(c => c.value === selectedColor)?.name || '') : '';
+          const itemId = selectedColor ? `${product.id}-${selectedColor}` : product.id;
+          const itemName = selectedColor ? `${product.title} (${colorName})` : product.title;
+          const item = {
+            id: itemId,
+            name: itemName,
+            price: product.price,
+            quantity: qty,
+            color: selectedColor || undefined
+          };
+          
+          if (window.cartHelpers && window.cartHelpers.addToCart) {
+            window.cartHelpers.addToCart(item);
+          } else if (window.addToCart) {
+            addToCart(item);
+          } else {
+            const cart = JSON.parse(localStorage.getItem('hm_cart_v1') || '[]');
+            const existing = cart.find(i => i.id === item.id);
+            if (existing) existing.quantity += item.quantity;
+            else cart.push(item);
+            localStorage.setItem('hm_cart_v1', JSON.stringify(cart));
+          }
+          
+          const displayName = selectedColor ? `${product.title} (${colorName})` : product.title;
+          alert(`${qty} × ${displayName} added to cart`);
+          window.dispatchEvent(new Event('cart:change'));
+        });
+      }
+    }
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>

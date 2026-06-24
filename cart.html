@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cart — Handmade Minimal</title>
+  <link href="style.css" rel="stylesheet" />
+  <style>
+    main { padding: 60px 0; }
+    .cart-container {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(40, 35, 20, 0.06);
+      padding: 32px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+      border-top: 1px solid #eee;
+    }
+    .cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .cart-info strong { font-weight: 600; color: var(--text); }
+    .cart-info small { color: var(--muted); }
+    .cart-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cart-actions button {
+      border: none;
+      background: #f3f2ef;
+      border-radius: 8px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      transition: 0.2s;
+    }
+    .cart-actions button:hover { background: var(--accent); color: #fff; }
+    .qty {
+      min-width: 26px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .remove-btn {
+      background: transparent !important;
+      border: 1px solid #ddd;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .remove-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .cart-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .checkout-buttons {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* Modal */
+    #purchaseModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .modal-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      width: 360px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    .modal-box h3 {
+      margin-top: 0;
+      font-family: 'Playfair Display', serif;
+    }
+    .modal-box input,
+    .modal-box textarea,
+    .modal-box select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 8px;
+      font-family: inherit;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .cancel {
+      background: transparent;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    .cancel:hover { border-color: var(--accent); color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bookmarks.html">Bookmarks</a>
+        <a href="bracelets.html">Bracelets</a>
+        <a href="keychains.html">Keychains</a>
+        <a href="resinwork.html">Resin Work</a>
+        <a href="claywork.html">Clay Work</a>
+        <a href="cart.html" class="active">Cart</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1 class="section-title">Your Cart</h1>
+      <div class="cart-container">
+        <ul id="cart-items" class="cart-items"></ul>
+
+        <div class="cart-summary">
+          <span>Total</span>
+          <span>₹<span id="total-price">0.00</span></span>
+        </div>
+
+        <div class="checkout-buttons">
+          <a class="btn" href="index.html">Continue Shopping</a>
+          <button id="checkoutBtn" class="primary">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Checkout Modal -->
+  <div id="purchaseModal">
+    <div class="modal-box">
+      <h3>Complete Your Order</h3>
+      <form id="purchaseForm">
+        <input name="email" id="orderEmail" placeholder="Email (for order lookup)" required />
+        <input name="name" placeholder="Full Name" required />
+        <input name="phone" placeholder="Phone" required />
+        <textarea name="address" placeholder="Address" required></textarea>
+        <select name="payment" required>
+          <option value="">Payment Method</option>
+          <option>Credit/Debit Card</option>
+          <option>UPI</option>
+          <option>Cash on Delivery</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="cancel" id="cancelModal">Cancel</button>
+          <button type="submit" class="primary">Pay Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container"><small>© 2025 Handmade Minimal</small></div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script>
+    const cartList = document.getElementById('cart-items');
+    const totalEl = document.getElementById('total-price');
+    const modal = document.getElementById('purchaseModal');
+    const cancelModal = document.getElementById('cancelModal');
+
+    function renderCart() {
+      const cart = window.cartHelpers.readCart();
+      cartList.innerHTML = '';
+      let total = 0;
+
+      if (!cart.length) {
+        cartList.innerHTML = '<li style="text-align:center; color:var(--muted); padding:20px;">Your cart is empty.</li>';
+      } else {
+        cart.forEach(item => {
+          total += item.price * item.quantity;
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <div class="cart-info">
+    <strong>${item.name}</strong><br/>
+    <small>₹${item.price.toFixed(2)} each</small>
+  </div>
+  <div class="cart-actions">
+    <button onclick="decrement('${item.id}')">-</button>
+    <div class="qty">${item.quantity}</div>
+    <button onclick="increment('${item.id}')">+</button>
+    <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
+  </div>
+          `;
+          cartList.appendChild(li);
+        });
+      }
+      totalEl.textContent = total.toFixed(2);
+    }
+
+    function increment(id) {
+      const cart = window.cartHelpers.readCart();
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        window.cartHelpers.setQuantity(id, item.quantity + 1);
+        renderCart();
+      }
+    }
+
+    function decrement(id) {
+      const cart = window.cartHelpers.readCart();
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        window.cartHelpers.setQuantity(id, item.quantity - 1);
+        renderCart();
+      }
+    }
+
+    function removeItem(id) {
+      window.cartHelpers.removeFromCart(id);
+      renderCart();
+    }
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      const cart = window.cartHelpers.readCart();
+      if (!cart.length) return alert('Your cart is empty.');
+      modal.style.display = 'flex';
+    });
+
+    cancelModal.addEventListener('click', () => (modal.style.display = 'none'));
+
+    document.getElementById('purchaseForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const cart = window.cartHelpers.readCart();
+      if (!cart.length) { alert('Your cart is empty.'); return; }
+
+      const emailInput = document.getElementById('orderEmail');
+      const authEmail = (localStorage.getItem('auth_email') || '').trim();
+      if (authEmail && !emailInput.value) emailInput.value = authEmail;
+
+      const items = cart.map(it => ({
+        productId: it.id,
+        title: it.name,
+        quantity: Number(it.quantity),
+        price: Number(it.price)
+      }));
+      const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0);
+      const payload = {
+        userEmail: emailInput.value || authEmail,
+        items,
+        shipping: 0,
+        tax: 0,
+        shippingAddress: { name: form.name.value, phone: form.phone.value, address: form.address.value }
+      };
+
+      try {
+        const resp = await fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!resp.ok) {
+          const data = await resp.json().catch(() => ({ message: 'Order failed' }));
+          alert(data.message || 'Order failed');
+          return;
+        }
+        modal.style.display = 'none';
+        window.cartHelpers.clearCart();
+        renderCart();
+        window.location.href = 'thankyou.html';
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    });
+
+    window.addEventListener('cart:change', renderCart);
+    try { const authEmail = localStorage.getItem('auth_email'); if (authEmail) document.getElementById('orderEmail').value = authEmail; } catch(_) {}
+    renderCart();
+  </script>
+</body>
+</html>

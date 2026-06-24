@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Handmade Minimal</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+    .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+    .contact-card{ background:#fff; padding:20px; border-radius:10px; box-shadow:0 8px 24px rgba(30,20,10,0.04) }
+    form input, form textarea, form button, form select{ width:100%; padding:10px; margin-top:10px; border-radius:8px; border:1px solid #e6e6e6 }
+    @media(max-width:800px){ .contact-grid{ grid-template-columns:1fr } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle">☰</button>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1 class="section-title">Contact</h1>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Send a message</h3>
+        <form id="contactForm">
+          <input name="name" placeholder="Your name" required>
+          <input name="email" placeholder="Your email" required type="email">
+          <textarea name="message" rows="6" placeholder="How can we help?" required></textarea>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+
+      <div class="contact-card">
+        <h3>Visit / Studio</h3>
+        <p class="muted">We are happy to welcome visitors by appointment. Find us below.</p>
+        <!-- Map aesthetic: use embedded Google Maps (replace src with your location) -->
+        <div style="border-radius:8px; overflow:hidden; margin-top:12px;">
+          <iframe
+            src=""
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/suraj0109_/" target="_blank">@suraj0109_</a></p>
+        <p><strong>Email:</strong> <a href="mailto:su.raja271001@gmail.com">su.raja271001@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+919666911133">+91 9666911133</a></p>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><small>© 2025 Handmade Minimal</small></div></footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thanks — your message has been sent.');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

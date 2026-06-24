@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Handmade Minimal — Home</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Handmade Minimal</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bookmarks.html">Bookmarks</a>
+        <a href="bracelets.html">Bracelets</a>
+        <a href="keychains.html">Keychains</a>
+        <a href="phonecase.html">Phone Case</a>
+        <a href="resinwork.html">Resin Work</a>
+        <a href="claywork.html">Clay Work</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+        <a href="account-login.html">Login</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      
+      <div class="hero-overlay container">
+        <h1 class="hero-title">Calm. Minimal. Handmade.</h1>
+        <p class="hero-sub">Curated, slow-crafted pieces — chosen with care.</p>
+        <a class="btn" href="bracelets.html">Shop Collections</a>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="container section">
+      <h2 class="section-title">Featured Collections</h2>
+      <div class="grid">
+        <article class="card">
+          <img src="images/bm4.png" alt="Bookmarks" class="card-img">
+          <h3 class="card-title">Bookmarks</h3>
+          <p class="card-sub">Hand-painted charm</p>
+          <div class="card-actions">
+            <a href="bookmarks.html" class="link">View</a>
+            <button class="add-to-cart" data-id="bookmark-1" data-name="Handmade Bookmark" data-price="12.00">Add</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/bt01.png" alt="Bracelets" class="card-img">
+          <h3 class="card-title">Bracelets</h3>
+          <p class="card-sub">Minimal beads & natural cords</p>
+          <div class="card-actions">
+            <a href="bracelets.html" class="link">View</a>
+            <button class="add-to-cart" data-id="bracelet-1" data-name="Beaded Bracelet" data-price="25.00">Add</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/kc1.png" alt="Keychains" class="card-img">
+          <h3 class="card-title">Keychains</h3>
+          <p class="card-sub">Resin charm & leather loop</p>
+          <div class="card-actions">
+            <a href="keychains.html" class="link">View</a>
+            <button class="add-to-cart" data-id="keychain-1" data-name="Resin Keychain" data-price="10.00">Add</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/cw.01.png" alt="Keychains" class="card-img">
+          <h3 class="card-title">claywork</h3>
+          <p class="card-sub">Sculpted just as you like</p>
+          <div class="card-actions">
+            <a href="claywork.html" class="link">View</a>
+            <button class="add-to-cart" data-id="keychain-1" data-name="Resin Keychain" data-price="10.00">Add</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About / Philosophy -->
+    <section class="container section muted">
+      <h2 class="section-title">Slow Made</h2>
+      <p class="lede">We design with restraint — a mindful practice of craft and careful material choices. Each piece is made in small batches and curated to last.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2025 Handmade Minimal — All rights reserved</small>
+    </div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
