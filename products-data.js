@@ -141,6 +141,20 @@ window.PRODUCTS_DATA = {
       care: 'Avoid heavy moisture'
     }
   },
+  //phonecase
+  'phonecase-sunset-ride': {
+    id: 'phonecase-sunset-ride',
+    title: 'Sunset Ride',
+    category: 'Phone Cases',
+    price: 220.00,
+    image: 'images/pc.01.png',
+    description: 'Hand-painted phone case inspired by sunset skies and vintage journeys.',
+    details: {
+        material: 'Watercolour paper 500gsm',
+        compatibility: 'Customisable for most phone models',
+        care: 'Wipe with soft dry cloth'
+    }
+},
   // Clay Work
   'clay-gris': {
     id: 'clay-gris',
@@ -233,6 +247,7 @@ window.PRODUCTS_DATA = {
       size: 'Varies by piece',
       care: 'Clean with soft cloth, avoid harsh chemicals'
     }
+    
   }
 };
 
