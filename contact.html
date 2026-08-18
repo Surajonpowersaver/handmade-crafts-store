@@ -1,67 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact — Handmade Minimal</title>
-  <link href="style.css" rel="stylesheet">
-  <style>
-    .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
-    .contact-card{ background:#fff; padding:20px; border-radius:10px; box-shadow:0 8px 24px rgba(30,20,10,0.04) }
-    form input, form textarea, form button, form select{ width:100%; padding:10px; margin-top:10px; border-radius:8px; border:1px solid #e6e6e6 }
-    @media(max-width:800px){ .contact-grid{ grid-template-columns:1fr } }
-  </style>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Contact — Handmade Minimal
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
+
 <body>
+
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
   <header class="site-header">
+
     <div class="container header-inner">
-      <a class="brand" href="index.html">Handmade Minimal</a>
+
+
+      <a
+        class="brand"
+        href="index.html"
+      >
+        Handmade Minimal
+      </a>
+
+
       <nav class="nav">
-        <a href="index.html">Home</a>
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="bookmarks.html">
+          Bookmarks
+        </a>
+
+        <a href="bracelets.html">
+          Bracelets
+        </a>
+
+        <a href="keychains.html">
+          Keychains
+        </a>
+
+        <a href="phonecase.html">
+          Phone Case
+        </a>
+
+        <a href="resin.html">
+          Resin Work
+        </a>
+
+        <a href="clay.html">
+          Clay Work
+        </a>
+
+        <a href="cart.html">
+          Cart
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+        <a href="login.html">
+          Login
+        </a>
+
       </nav>
-      <button id="nav-toggle" class="nav-toggle">☰</button>
+
+
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        aria-label="Open navigation"
+      >
+        ☰
+      </button>
+
     </div>
+
   </header>
 
-  <main class="container section">
-    <h1 class="section-title">Contact</h1>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <h3>Send a message</h3>
-        <form id="contactForm">
-          <input name="name" placeholder="Your name" required>
-          <input name="email" placeholder="Your email" required type="email">
-          <textarea name="message" rows="6" placeholder="How can we help?" required></textarea>
-          <button type="submit" class="btn">Send</button>
-        </form>
+
+  <!-- =====================================================
+       CONTACT PAGE
+       ===================================================== -->
+
+  <main class="contact-page">
+
+
+    <!-- HEADING -->
+
+    <section class="contact-heading">
+
+
+      <div class="contact-eyebrow">
+        We'd love to hear from you
       </div>
 
+
+      <h1>
+        Let's Connect
+      </h1>
+
+
+      <div class="contact-heading-mark">
+        — ✦ —
+      </div>
+
+
+      <p>
+        Have a question, want a custom piece,
+        or simply want to say hello?
+        We'd love to hear from you.
+      </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTACT CARDS
+         ===================================================== -->
+
+    <section class="contact-grid">
+
+
+      <!-- =================================================
+           SEND MESSAGE
+           ================================================= -->
+
       <div class="contact-card">
-        <h3>Visit / Studio</h3>
-        <p class="muted">We are happy to welcome visitors by appointment. Find us below.</p>
-        <!-- Map aesthetic: use embedded Google Maps (replace src with your location) -->
-        <div style="border-radius:8px; overflow:hidden; margin-top:12px;">
-          <iframe
-            src=""
-            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
+        <div class="contact-card-title">
+
+
+          <div class="contact-card-icon">
+            ✉
+          </div>
+
+
+          <h2>
+            Send a message
+          </h2>
+
+
         </div>
-        
-        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/suraj0109_/" target="_blank">@suraj0109_</a></p>
-        <p><strong>Email:</strong> <a href="mailto:su.raja271001@gmail.com">su.raja271001@gmail.com</a></p>
-        <p><strong>Phone:</strong> <a href="tel:+919666911133">+91 9666911133</a></p>
+
+
+        <form id="contactForm">
+
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+          >
+
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your email"
+            required
+          >
+
+
+          <textarea
+            name="message"
+            placeholder="How can we help?"
+            required
+          ></textarea>
+
+
+          <button
+            type="submit"
+            class="contact-submit"
+          >
+            Send Message
+          </button>
+
+
+        </form>
+
 
       </div>
-    </div>
+
+
+      <!-- =================================================
+           GET IN TOUCH
+           ================================================= -->
+
+      <div class="contact-card">
+
+
+        <div class="contact-card-title">
+
+
+          <div class="contact-card-icon">
+            ♡
+          </div>
+
+
+          <h2>
+            Get in touch
+          </h2>
+
+
+        </div>
+
+
+        <p class="contact-description">
+
+          Whether you're looking for something
+          special, have a question about an order,
+          or simply want to say hello,
+          feel free to reach out.
+
+        </p>
+
+
+        <div class="contact-details">
+
+
+          <!-- INSTAGRAM -->
+
+          <div class="contact-detail">
+
+
+            <div class="contact-detail-icon">
+              ◎
+            </div>
+
+
+            <div class="contact-detail-info">
+
+
+              <span class="contact-detail-label">
+                Instagram
+              </span>
+
+
+              <a
+                href="https://www.instagram.com/suraj0109_/"
+                target="_blank"
+                rel="noopener"
+              >
+                @suraj0109_
+              </a>
+
+
+            </div>
+
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="contact-detail">
+
+
+            <div class="contact-detail-icon">
+              ✉
+            </div>
+
+
+            <div class="contact-detail-info">
+
+
+              <span class="contact-detail-label">
+                Email
+              </span>
+
+
+              <a
+                href="mailto:su.raja271001@gmail.com"
+              >
+                su.raja271001@gmail.com
+              </a>
+
+
+            </div>
+
+
+          </div>
+
+
+          <!-- PHONE -->
+
+          <div class="contact-detail">
+
+
+            <div class="contact-detail-icon">
+              ☎
+            </div>
+
+
+            <div class="contact-detail-info">
+
+
+              <span class="contact-detail-label">
+                Phone
+              </span>
+
+
+              <a
+                href="tel:+919666911133"
+              >
+                +91 9666911133
+              </a>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+        <!-- HANDMADE NOTE -->
+
+        <div class="contact-note">
+
+          ♡ &nbsp;
+          Thank you for supporting handmade.
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
   </main>
 
-  <footer class="site-footer"><div class="container"><small>© 2025 Handmade Minimal</small></div></footer>
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <small>
+        © 2025 Handmade Minimal —
+        All rights reserved
+      </small>
+
+    </div>
+
+  </footer>
+
+
+
 
   <script>
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thanks — your message has been sent.');
-      e.target.reset();
-    });
+
+
+    /* Contact form */
+
+    const contactForm =
+      document.getElementById("contactForm");
+
+
+    if (contactForm) {
+
+      contactForm.addEventListener(
+        "submit",
+        function (e) {
+
+          e.preventDefault();
+
+          alert(
+            "Thanks — your message has been sent."
+          );
+
+          contactForm.reset();
+
+        }
+      );
+
+    }
+
+
+    /* Mobile navigation */
+
+    const navToggle =
+      document.getElementById("nav-toggle");
+
+    const nav =
+      document.querySelector(".nav");
+
+
+    if (navToggle && nav) {
+
+      navToggle.addEventListener(
+        "click",
+        function () {
+
+          nav.classList.toggle("open");
+
+        }
+      );
+
+    }
+
   </script>
+
+
 </body>
+
 </html>
