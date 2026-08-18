@@ -10,14 +10,778 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Contact — Handmade Minimal
-  </title>
+  <title>Contact — Handmade Minimal</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+
+  <!-- =====================================================
+       CONTACT PAGE STYLES — COMPLETELY STANDALONE
+       ===================================================== -->
+
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap');
+
+
+    /* =====================================================
+       RESET
+       ===================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fbfaf8;
+      color: #211c20;
+
+      font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      line-height: 1.5;
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .contact-header {
+      width: 100%;
+
+      background: rgba(255, 255, 255, 0.86);
+
+      border-bottom: 1px solid #eeeae5;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+
+    .contact-header-inner {
+      width: min(1100px, calc(100% - 40px));
+
+      min-height: 72px;
+
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 25px;
+    }
+
+
+    .contact-brand {
+      color: #3b3640;
+
+      text-decoration: none;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 1.15rem;
+
+      font-weight: 600;
+
+      white-space: nowrap;
+    }
+
+
+    .contact-nav {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: flex-end;
+
+      gap: 5px;
+    }
+
+
+    .contact-nav a {
+      padding: 7px 8px;
+
+      border-radius: 6px;
+
+      color: #8b7d73;
+
+      text-decoration: none;
+
+      font-size: 0.86rem;
+
+      transition:
+        color 0.2s ease,
+        background 0.2s ease;
+    }
+
+
+    .contact-nav a:hover {
+      color: #3b3640;
+
+      background: rgba(0, 0, 0, 0.025);
+    }
+
+
+    .contact-nav a.active {
+      color: #3b3640;
+
+      font-weight: 600;
+    }
+
+
+    .contact-mobile-toggle {
+      display: none;
+
+      border: 0;
+
+      background: transparent;
+
+      color: #3b3640;
+
+      font-size: 22px;
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       MAIN
+       ===================================================== */
+
+    .contact-main {
+      width: 100%;
+
+      padding: 65px 0 80px;
+    }
+
+
+    /* =====================================================
+       PAGE HEADING
+       ===================================================== */
+
+    .contact-hero {
+      width: min(850px, calc(100% - 40px));
+
+      margin: 0 auto 50px;
+
+      text-align: center;
+    }
+
+
+    .contact-eyebrow {
+      margin-bottom: 12px;
+
+      color: #70645e;
+
+      font-size: 0.72rem;
+
+      font-weight: 500;
+
+      text-transform: uppercase;
+
+      letter-spacing: 4px;
+    }
+
+
+    .contact-title {
+      margin: 0;
+
+      color: #171315;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: clamp(2.8rem, 5vw, 4rem);
+
+      font-weight: 600;
+
+      line-height: 1.08;
+
+      letter-spacing: -1px;
+    }
+
+
+    .contact-divider {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 14px;
+
+      margin: 17px 0 16px;
+
+      color: #171315;
+
+      font-family: Georgia, serif;
+
+      font-size: 17px;
+    }
+
+
+    .contact-divider::before,
+    .contact-divider::after {
+      content: "";
+
+      width: 20px;
+
+      height: 1px;
+
+      background: #171315;
+    }
+
+
+    .contact-hero-text {
+      max-width: 780px;
+
+      margin: 0 auto;
+
+      color: #4d4541;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 1rem;
+
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       CONTACT GRID
+       ===================================================== */
+
+    .contact-grid {
+      width: min(1050px, calc(100% - 40px));
+
+      margin: 0 auto;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 28px;
+
+      align-items: stretch;
+    }
+
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
+    .contact-card {
+      background: #ffffff;
+
+      border: 1px solid #eee6dc;
+
+      border-radius: 13px;
+
+      padding: 36px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(50, 40, 30, 0.055);
+    }
+
+
+    /* =====================================================
+       CARD HEADINGS
+       ===================================================== */
+
+    .contact-card-heading {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      margin-bottom: 30px;
+    }
+
+
+    .contact-card-icon {
+      width: 49px;
+
+      height: 49px;
+
+      flex: 0 0 49px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #f4efe7;
+
+      color: #887962;
+
+      font-size: 18px;
+    }
+
+
+    .contact-card-title {
+      margin: 0;
+
+      color: #171315;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 1.55rem;
+
+      font-weight: 600;
+    }
+
+
+    .contact-card-title::after {
+      content: "";
+
+      display: block;
+
+      width: 38px;
+
+      height: 2px;
+
+      margin-top: 7px;
+
+      background: #c7b79a;
+    }
+
+
+    /* =====================================================
+       FORM
+       ===================================================== */
+
+    .contact-form {
+      width: 100%;
+
+      margin: 0;
+
+      padding: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 0;
+
+      background: transparent;
+
+      border: 0;
+
+      box-shadow: none;
+    }
+
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+
+      margin: 0;
+
+      padding: 13px 16px;
+
+      border: 1px solid #ddd4c8;
+
+      border-radius: 9px;
+
+      outline: none;
+
+      background: #fffdfb;
+
+      color: #342d31;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 0.95rem;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+
+    .contact-form textarea {
+      min-height: 205px;
+
+      resize: vertical;
+    }
+
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #c7b79a;
+
+      box-shadow:
+        0 0 0 3px
+        rgba(199, 183, 154, 0.14);
+    }
+
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #726761;
+
+      opacity: 1;
+    }
+
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
+
+    .contact-submit {
+      width: 100%;
+
+      margin-top: 18px;
+
+      padding: 13px 16px;
+
+      border: 0;
+
+      border-radius: 8px;
+
+      background: #c7b79a;
+
+      color: #ffffff;
+
+      font-family:
+        "Inter",
+        system-ui,
+        sans-serif;
+
+      font-size: 0.9rem;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+
+    .contact-submit:hover {
+      background: #b3a17b;
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 7px 16px
+        rgba(80, 65, 45, 0.12);
+    }
+
+
+    /* =====================================================
+       RIGHT SIDE DESCRIPTION
+       ===================================================== */
+
+    .contact-description {
+      margin: 0 0 24px;
+
+      color: #3e3733;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 0.98rem;
+
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       CONTACT DETAILS
+       ===================================================== */
+
+    .contact-details {
+      width: 100%;
+
+      border-top:
+        1px solid #eee5dc;
+    }
+
+
+    .contact-detail {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      padding: 17px 0;
+
+      border-bottom:
+        1px solid #eee5dc;
+    }
+
+
+    .contact-detail-icon {
+      width: 48px;
+
+      height: 48px;
+
+      flex: 0 0 48px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #f4efe7;
+
+      color: #887962;
+
+      font-size: 17px;
+    }
+
+
+    .contact-detail-info {
+      min-width: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 3px;
+    }
+
+
+    .contact-detail-label {
+      color: #171315;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 0.7rem;
+
+      font-weight: 700;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.6px;
+    }
+
+
+    .contact-detail-info a {
+      color: #171315;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 0.93rem;
+
+      text-decoration: none;
+
+      word-break: break-word;
+    }
+
+
+    .contact-detail-info a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =====================================================
+       HANDMADE NOTE
+       ===================================================== */
+
+    .contact-note {
+      margin-top: 24px;
+
+      padding: 17px 15px;
+
+      border: 1px solid #e7dccd;
+
+      border-radius: 8px;
+
+      background: #f5f0e8;
+
+      color: #786b62;
+
+      text-align: center;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 0.92rem;
+
+      font-style: italic;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .contact-footer {
+      width: 100%;
+
+      padding: 27px 20px;
+
+      border-top: 1px solid #ebe6df;
+
+      background: #fffdfb;
+
+      color: #8b7d73;
+
+      text-align: center;
+
+      font-size: 0.84rem;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 1050px) {
+
+      .contact-nav {
+        gap: 2px;
+      }
+
+      .contact-nav a {
+        padding: 6px;
+
+        font-size: 0.79rem;
+      }
+    }
+
+
+    @media (max-width: 850px) {
+
+      .contact-header-inner {
+        min-height: 65px;
+      }
+
+      .contact-mobile-toggle {
+        display: block;
+      }
+
+      .contact-nav {
+        display: none;
+
+        position: absolute;
+
+        left: 0;
+
+        right: 0;
+
+        top: 65px;
+
+        padding: 12px 20px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        background: rgba(255, 255, 255, 0.98);
+
+        border-bottom:
+          1px solid #eeeae5;
+
+        box-shadow:
+          0 10px 20px
+          rgba(0, 0, 0, 0.05);
+      }
+
+      .contact-nav.open {
+        display: flex;
+      }
+
+      .contact-nav a {
+        padding: 10px;
+
+        font-size: 0.9rem;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    @media (max-width: 600px) {
+
+      .contact-main {
+        padding: 45px 0 60px;
+      }
+
+      .contact-hero {
+        margin-bottom: 35px;
+      }
+
+      .contact-title {
+        font-size: 2.6rem;
+      }
+
+      .contact-hero-text {
+        font-size: 0.94rem;
+      }
+
+      .contact-card {
+        padding: 25px;
+      }
+
+      .contact-card-title {
+        font-size: 1.35rem;
+      }
+
+      .contact-grid {
+        width: min(100% - 28px, 1050px);
+      }
+    }
+
+  </style>
 
 </head>
 
@@ -29,20 +793,23 @@
        HEADER
        ===================================================== -->
 
-  <header class="site-header">
+  <header class="contact-header">
 
-    <div class="container header-inner">
+    <div class="contact-header-inner">
 
 
       <a
-        class="brand"
         href="index.html"
+        class="contact-brand"
       >
         Handmade Minimal
       </a>
 
 
-      <nav class="nav">
+      <nav
+        class="contact-nav"
+        id="contactNav"
+      >
 
         <a href="index.html">
           Home
@@ -76,7 +843,10 @@
           Cart
         </a>
 
-        <a href="contact.html">
+        <a
+          href="contact.html"
+          class="active"
+        >
           Contact
         </a>
 
@@ -88,12 +858,14 @@
 
 
       <button
-        id="nav-toggle"
-        class="nav-toggle"
+        type="button"
+        class="contact-mobile-toggle"
+        id="contactNavToggle"
         aria-label="Open navigation"
       >
         ☰
       </button>
+
 
     </div>
 
@@ -101,15 +873,17 @@
 
 
   <!-- =====================================================
-       CONTACT PAGE
+       MAIN
        ===================================================== -->
 
-  <main class="contact-page">
+  <main class="contact-main">
 
 
-    <!-- HEADING -->
+    <!-- ===================================================
+         HEADING
+         =================================================== -->
 
-    <section class="contact-heading">
+    <section class="contact-hero">
 
 
       <div class="contact-eyebrow">
@@ -117,28 +891,29 @@
       </div>
 
 
-      <h1>
+      <h1 class="contact-title">
         Let's Connect
       </h1>
 
 
-      <div class="contact-heading-mark">
-        — ✦ —
+      <div class="contact-divider">
+        <span>✦</span>
       </div>
 
 
-      <p>
+      <p class="contact-hero-text">
         Have a question, want a custom piece,
         or simply want to say hello?
         We'd love to hear from you.
       </p>
 
+
     </section>
 
 
-    <!-- =====================================================
-         CONTACT CARDS
-         ===================================================== -->
+    <!-- ===================================================
+         CARDS
+         =================================================== -->
 
     <section class="contact-grid">
 
@@ -147,10 +922,10 @@
            SEND MESSAGE
            ================================================= -->
 
-      <div class="contact-card">
+      <article class="contact-card">
 
 
-        <div class="contact-card-title">
+        <div class="contact-card-heading">
 
 
           <div class="contact-card-icon">
@@ -158,7 +933,7 @@
           </div>
 
 
-          <h2>
+          <h2 class="contact-card-title">
             Send a message
           </h2>
 
@@ -166,7 +941,10 @@
         </div>
 
 
-        <form id="contactForm">
+        <form
+          class="contact-form"
+          id="contactForm"
+        >
 
 
           <input
@@ -203,17 +981,17 @@
         </form>
 
 
-      </div>
+      </article>
 
 
       <!-- =================================================
            GET IN TOUCH
            ================================================= -->
 
-      <div class="contact-card">
+      <article class="contact-card">
 
 
-        <div class="contact-card-title">
+        <div class="contact-card-heading">
 
 
           <div class="contact-card-icon">
@@ -221,7 +999,7 @@
           </div>
 
 
-          <h2>
+          <h2 class="contact-card-title">
             Get in touch
           </h2>
 
@@ -230,12 +1008,9 @@
 
 
         <p class="contact-description">
-
-          Whether you're looking for something
-          special, have a question about an order,
-          or simply want to say hello,
-          feel free to reach out.
-
+          Whether you're looking for something special,
+          have a question about an order, or simply want
+          to say hello, feel free to reach out.
         </p>
 
 
@@ -254,20 +1029,17 @@
 
             <div class="contact-detail-info">
 
-
               <span class="contact-detail-label">
                 Instagram
               </span>
 
-
               <a
                 href="https://www.instagram.com/suraj0109_/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
                 @suraj0109_
               </a>
-
 
             </div>
 
@@ -287,18 +1059,13 @@
 
             <div class="contact-detail-info">
 
-
               <span class="contact-detail-label">
                 Email
               </span>
 
-
-              <a
-                href="mailto:su.raja271001@gmail.com"
-              >
+              <a href="mailto:su.raja271001@gmail.com">
                 su.raja271001@gmail.com
               </a>
-
 
             </div>
 
@@ -318,18 +1085,13 @@
 
             <div class="contact-detail-info">
 
-
               <span class="contact-detail-label">
                 Phone
               </span>
 
-
-              <a
-                href="tel:+919666911133"
-              >
+              <a href="tel:+919666911133">
                 +91 9666911133
               </a>
-
 
             </div>
 
@@ -340,17 +1102,12 @@
         </div>
 
 
-        <!-- HANDMADE NOTE -->
-
         <div class="contact-note">
-
-          ♡ &nbsp;
-          Thank you for supporting handmade.
-
+          ♡ &nbsp; Thank you for supporting handmade.
         </div>
 
 
-      </div>
+      </article>
 
 
     </section>
@@ -363,38 +1120,34 @@
        FOOTER
        ===================================================== -->
 
-  <footer class="site-footer">
+  <footer class="contact-footer">
 
-    <div class="container">
-
-      <small>
-        © 2025 Handmade Minimal —
-        All rights reserved
-      </small>
-
-    </div>
+    © 2025 Handmade Minimal —
+    All rights reserved
 
   </footer>
 
 
-
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
 
   <script>
 
-
-    /* Contact form */
+    /* -------------------------
+       CONTACT FORM
+       ------------------------- */
 
     const contactForm =
       document.getElementById("contactForm");
-
 
     if (contactForm) {
 
       contactForm.addEventListener(
         "submit",
-        function (e) {
+        function (event) {
 
-          e.preventDefault();
+          event.preventDefault();
 
           alert(
             "Thanks — your message has been sent."
@@ -408,14 +1161,15 @@
     }
 
 
-    /* Mobile navigation */
+    /* -------------------------
+       MOBILE NAVIGATION
+       ------------------------- */
 
     const navToggle =
-      document.getElementById("nav-toggle");
+      document.getElementById("contactNavToggle");
 
     const nav =
-      document.querySelector(".nav");
-
+      document.getElementById("contactNav");
 
     if (navToggle && nav) {
 
